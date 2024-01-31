@@ -1,1 +1,1 @@
-Remove-AzResourceGroup -Name Readiness_Day1 -Force
+Remove-AzResourceGroup -Name Readiness_Day1
