@@ -8,6 +8,8 @@ New-AzVM -ResourceGroupName Readiness_Day1 -Name "Vm1" `
     -SubnetName 'Vm1-Subnet' `
     -SecurityGroupName 'Vm1-nsg' `
     -PublicIpAddressName 'Vm1-public-ip' `
+    -OSDiskDeleteOption Detach `
+    -NetworkInterfaceDeleteOption Detach `
     -OpenPorts 80,3389
 
 Invoke-AzVMRunCommand -ResourceGroupName Readiness_Day1 -VMName Vm1 `

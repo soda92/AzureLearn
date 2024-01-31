@@ -1,0 +1,77 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_Vm1_name": {
+            "defaultValue": "Vm1",
+            "type": "String"
+        },
+        "disks_Vm1_disk1_906cbae552db4464adf83e2b71ad6810_externalid": {
+            "defaultValue": "/subscriptions/89c60b7b-9d90-4133-a61f-f8d064c775d5/resourceGroups/READINESS_DAY1/providers/Microsoft.Compute/disks/Vm1_disk1_906cbae552db4464adf83e2b71ad6810",
+            "type": "String"
+        },
+        "networkInterfaces_Vm1_externalid": {
+            "defaultValue": "/subscriptions/89c60b7b-9d90-4133-a61f-f8d064c775d5/resourceGroups/Readiness_Day1/providers/Microsoft.Network/networkInterfaces/Vm1",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2023-03-01",
+            "name": "[parameters('virtualMachines_Vm1_name')]",
+            "location": "northeurope",
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_D2s_v3"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2022-datacenter-azure-edition",
+                        "version": "20348.2227.240104"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "[concat(parameters('virtualMachines_Vm1_name'), '_disk1_906cbae552db4464adf83e2b71ad6810')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "storageAccountType": "Premium_LRS",
+                            "id": "[parameters('disks_Vm1_disk1_906cbae552db4464adf83e2b71ad6810_externalid')]"
+                        },
+                        "deleteOption": "Detach",
+                        "diskSizeGB": 127
+                    },
+                    "dataDisks": [],
+                    "diskControllerType": "SCSI"
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_Vm1_name')]",
+                    "adminUsername": "azureuser",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true,
+                        "patchSettings": {
+                            "patchMode": "AutomaticByOS",
+                            "assessmentMode": "ImageDefault"
+                        },
+                        "enableVMAgentPlatformUpdates": false
+                    },
+                    "secrets": [],
+                    "allowExtensionOperations": true,
+                    "requireGuestProvisionSignal": true
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[parameters('networkInterfaces_Vm1_externalid')]"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}

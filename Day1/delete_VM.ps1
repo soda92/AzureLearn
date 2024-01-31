@@ -1,0 +1,1 @@
+Remove-AzVM -Name Vm1 -ResourceGroupName Readiness_Day1
