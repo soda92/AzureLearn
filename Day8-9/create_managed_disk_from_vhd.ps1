@@ -19,12 +19,14 @@ function CreateDisk {
     $sku = "Standard_LRS"
     $zoneId = 1
 
-    $diskConfig = New-AzDiskConfig -SkuName $sku -Location $location -DiskSizeGB $diskSize -SourceUri $vhdUri -StorageAccountId $storageAccoundId -CreateOption Import -Zone $zoneId
+    $diskConfig = New-AzDiskConfig -SkuName $sku -Location $location -DiskSizeGB $diskSize `
+    -SourceUri $vhdUri -StorageAccountId $storageAccoundId -CreateOption Import -Zone $zoneId `
+    -OsType Windows -HyperVGeneration V1
 
     New-AzDisk -DiskName $diskName -Disk $diskConfig -ResourceGroupName $resourceGroupName
 }
 
-for ($i = 1; $i -le 7; $i = $i + 1) {
+for ($i = 1; $i -le 1; $i = $i + 1) {
     $vhdFileName = "Test$i.vhd"
     $diskName = "Test$i"
     CreateDisk -vhdFileName $vhdFileName -diskName $diskName
