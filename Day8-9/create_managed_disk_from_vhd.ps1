@@ -1,12 +1,10 @@
 $subscriptionId = "89c60b7b-9d90-4133-a61f-f8d064c775d5"
 $resourceGroupName = "Readiness_Day8-9"
-$diskSize = '128'
 
 $storageAccountName = "myq234832432"
-$storageAccoundId = "/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.Storage/storageAccounts/$storageAccountName"
-
-$sku = "Premium_LRS"
 $location = "eastus"
+
+$storageAccoundId = "/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.Storage/storageAccounts/$storageAccountName"
 
 Set-AzContext -Subscription $subscriptionId
 
@@ -15,8 +13,13 @@ function CreateDisk {
         $vhdFileName,
         $diskName
     )
-    $vhdUri = "https://myq234832432.blob.core.windows.net/vhds/$vhdFileName"
-    $diskConfig = New-AzDiskConfig -SkuName $sku -Location $location -DiskSizeGB $diskSize -SourceUri $vhdUri -StorageAccountId $storageAccoundId -CreateOption Import
+    $vhdUri = "https://$storageAccountName.blob.core.windows.net/vhds/$vhdFileName"
+
+    $diskSize = '128'
+    $sku = "Standard_LRS"
+    $zoneId = 1
+
+    $diskConfig = New-AzDiskConfig -SkuName $sku -Location $location -DiskSizeGB $diskSize -SourceUri $vhdUri -StorageAccountId $storageAccoundId -CreateOption Import -Zone $zoneId
 
     New-AzDisk -DiskName $diskName -Disk $diskConfig -ResourceGroupName $resourceGroupName
 }
