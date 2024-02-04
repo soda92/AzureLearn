@@ -1,6 +1,8 @@
 $resourceGroupName = "Readiness_Day8-9"
+$location = "japaneast"
+New-AzResourceGroup -Name $resourceGroupName -Location $location
+
 $vmName = 'NestedHyperV'
-$location = "Japan East"
 $zoneId = 1
 
 New-AzVM -ResourceGroupName $resourceGroupName -Name $vmName `
