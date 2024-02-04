@@ -1,0 +1,23 @@
+$resourceGroupName = "Readiness_Day8-9"
+$vmName = 'NestedHyperV'
+$location = "Japan East"
+$zoneId = 1
+
+New-AzVM -ResourceGroupName $resourceGroupName -Name $vmName `
+    -Location $location -Image `
+    'MicrosoftWindowsServer:WindowsServer:2022-datacenter-azure-edition:latest' `
+    -Size "Standard_D4s_v5" `
+    -VirtualNetworkName "$vmName-vnet" `
+    -SubnetName "$vmName-Subnet" `
+    -SecurityGroupName "$vmName-nsg" `
+    -PublicIpAddressName "$vmName-public-ip" `
+    -OSDiskDeleteOption Delete `
+    -NetworkInterfaceDeleteOption Delete `
+    -Zone $zoneId `
+    -OpenPorts 3389
+
+Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -VMName $vmName `
+    -CommandId "RunPowerShellScript" `
+    -ScriptString 'Install-WindowsFeature -Name Hyper-V -IncludeAllSubFeature -IncludeManagementTools'
+
+Restart-AzVM -ResourceGroupName $resourceGroupName -Name $vmName
