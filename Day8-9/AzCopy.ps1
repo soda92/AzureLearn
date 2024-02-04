@@ -1,0 +1,3 @@
+$env:AZCOPY_CONCURRENCY_VALUE = "AUTO";
+./azcopy.exe copy "https://myq234832432.blob.core.windows.net/vhds/*?sv=2023-01-03&st=2024-02-04T02%3A16%3A43Z&se=2024-02-11T02%3A31%3A43Z&sr=c&sp=rlt&sig=4wx1%2BaGmUi3pctPwkwVMZ8c3N2UGWjDQpBk9%2FgYkolM%3D" "https://myq2348324321.blob.core.windows.net/vhds/?sv=2023-01-03&se=2024-03-05T02%3A31%3A51Z&sr=c&sp=rwlt&sig=WFoEHCRf%2BB%2BCNH3AiQROhP2j5hcbuqVLQ0kvMQ1gtMg%3D" --overwrite=prompt --from-to=BlobBlob --s2s-preserve-access-tier=false --check-length=true --include-directory-stub=false --s2s-preserve-blob-tags=true --list-of-files "C:\Users\AZUREU~1\AppData\Local\Temp\2\stg-exp-azcopy-42a87f30-7c5d-4f72-a8f2-12a13b35e8d7.txt" --recursive --log-level=INFO;
+$env:AZCOPY_CONCURRENCY_VALUE = "";
