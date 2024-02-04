@@ -1,5 +1,3 @@
-Connect-AzAccount
-
 New-AzResourceGroup -Name Readiness_Day1 -Location 'Central India'
 New-AzVM -ResourceGroupName Readiness_Day1 -Name "Vm1" `
     -Location northeurope -Image `

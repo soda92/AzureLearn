@@ -1,7 +1,4 @@
-# Connect-AzAccount
-
 $rgName = "Readiness_Day3"
-$location = "centralindia"
 $vmName = "testvm1"
 
 $vm = Get-AzVM -ResourceGroupName $rgName -Name $vmName
