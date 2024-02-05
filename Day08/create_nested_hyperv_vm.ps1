@@ -1,9 +1,8 @@
-$resourceGroupName = "Readiness_Day8-9"
+$resourceGroupName = "Readiness_Day8"
 $location = "japaneast"
 New-AzResourceGroup -Name $resourceGroupName -Location $location
 
 $vmName = 'NestedHyperV'
-$zoneId = 1
 
 New-AzVM -ResourceGroupName $resourceGroupName -Name $vmName `
     -Location $location -Image `
@@ -15,7 +14,6 @@ New-AzVM -ResourceGroupName $resourceGroupName -Name $vmName `
     -PublicIpAddressName "$vmName-public-ip" `
     -OSDiskDeleteOption Delete `
     -NetworkInterfaceDeleteOption Delete `
-    -Zone $zoneId `
     -OpenPorts 3389
 
 Invoke-AzVMRunCommand -ResourceGroupName $resourceGroupName -VMName $vmName `

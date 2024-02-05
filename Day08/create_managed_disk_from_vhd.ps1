@@ -1,8 +1,9 @@
-$subscriptionId = "89c60b7b-9d90-4133-a61f-f8d064c775d5"
-$resourceGroupName = "Readiness_Day8-9"
+$subscriptionId = (Get-AzSubscription)[0].Id
+$resourceGroupName = "Readiness_Day8"
+$location = "japaneast"
+New-AzResourceGroup -Name $resourceGroupName -Location $location
 
 $storageAccountName = "myq2348324321"
-$location = "japaneast"
 
 $storageAccoundId = "/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.Storage/storageAccounts/$storageAccountName"
 
@@ -16,11 +17,10 @@ function CreateDisk {
     $vhdUri = "https://$storageAccountName.blob.core.windows.net/vhds/$vhdFileName"
 
     $diskSize = '128'
-    $sku = "Standard_LRS"
-    $zoneId = 1
+    $sku = "Premium_LRS"
 
     $diskConfig = New-AzDiskConfig -SkuName $sku -Location $location -DiskSizeGB $diskSize `
-    -SourceUri $vhdUri -StorageAccountId $storageAccoundId -CreateOption Import -Zone $zoneId `
+    -SourceUri $vhdUri -StorageAccountId $storageAccoundId -CreateOption Import `
     -OsType Windows -HyperVGeneration V1
 
     New-AzDisk -DiskName $diskName -Disk $diskConfig -ResourceGroupName $resourceGroupName

@@ -1,1 +1,1 @@
-Remove-AzResourceGroup Readiness_Day8-9
+Remove-AzResourceGroup Readiness_Day8
